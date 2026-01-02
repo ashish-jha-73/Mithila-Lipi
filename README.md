@@ -79,6 +79,13 @@ You are free to use, modify, and distribute this project with attribution.
 
 ---
 
+## ❤️ Support
+
+If you find Mithila-Lipi useful, you can support its maintenance via
+[GitHub Sponsors](https://github.com/sponsors/ashish-jha-73).
+
+---
+
 ## 🙏 Acknowledgement
 
 This project is created to support the preservation and everyday use of the Tirhuta script.
