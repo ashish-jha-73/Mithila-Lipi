@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="google-site-verification" content="2wdNbhrdMEs5-Npb_PgG-9SB02oW6mtAv07_-V-cZJ8" />
+  <meta name="google-site-verification" content="ovSo9mfCYJ-5FMzcFRlcsfEynjTYyQnTVnvQ_FdTCKk" />
+  <meta name="description" content="Mithila-Lipi is a free, browser-based tool to convert Maithili text from Devanagari to the traditional Tirhuta (Mithilाक्षर) script." />
+  <title>Mithila-Lipi — Maithili Script Converter (Devanagari to Tirhuta)</title>
+  <link rel="icon" href="./Data/madhubani_painting.jpg" type="image/jpg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container" role="main">
+    <header>
+      <h1>देवनागरी → तिरहुत (मिथिलाक्षर)</h1>
+      <div class="subtitle">Maithili in traditional Tirhuta — translate in two steps: English → Maithili, then paste Maithili here.</div>
+    </header>
+
+    <div class="grid">
+      <div class="panel">
+        <label class="hint">Step 1 — Translate English → Maithili (Devanagari)</label>
+        <p class="hint-line">
+          Use <a href="https://translate.google.com/?sl=en&tl=mai" target="_blank">Google Translate</a>.
+        </p>
+
+        <label class="hint" style="margin-top:12px">Step 2 — Paste Maithili (देवनागरी)</label>
+        <textarea id="input" placeholder="यहाँ मैथिली (देवनागरी) लिखें या पेस्ट करें..."></textarea>
+
+        <div class="controls">
+          <button id="clearBtn" class="btn ghost small">Clear</button>
+          <button id="sampleBtn" class="btn small">Insert sample</button>
+          <div style="flex:1"></div>
+          <button id="convertBtn" class="btn small">Convert</button>
+        </div>
+      </div>
+
+      <div class="output-wrap">
+        <div class="output-header">
+          <div class="output-title">Tirhuta Output</div>
+          <button id="copyBtn" class="copy-btn">Copy</button>
+        </div>
+        <div id="output" class="output"></div>
+      </div>
+    </div>
+
+    <div class="footer">Made with ♥ to preserve Mithila’s script</div>
+  </div>
+  <footer class="site-footer">
+    <h2>About Mithila-Lipi</h2>
+    <p>
+      Mithila-Lipi is an open, non-commercial project created to support the use
+      and preservation of the traditional Tirhuta script of the Maithili language.
+      The tool converts Maithili written in Devanagari into Tirhuta directly in the browser.
+    </p>
+    <a href="https://github.com/ashish-jha-73/Mithila-Lipi" target="_blank">GitHub</a>
+  </footer>
+  <div id="toast" class="toast">Copied!</div>
+  <script src="script.js"></script>
+</body>
+</html>
