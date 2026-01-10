@@ -5,7 +5,7 @@
 The project is built to support learning, writing, and preservation of the Maithili language and its original writing system.
 
 🌐 **Live website**  
-https://ashish-jha-73.github.io/Mithila-Lipi/
+https://mithila-lipi.netlify.app/
 
 ---
 
