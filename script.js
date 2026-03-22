@@ -55,7 +55,7 @@ function setTranslationStatus(message, isError = false){
 }
 
 async function translateUsingGoogle(text){
-  const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=hi&dt=t&q=${encodeURIComponent(text)}`;
+  const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=mai&dt=t&q=${encodeURIComponent(text)}`;
   const res = await fetch(url);
   if (!res.ok) {
     throw new Error('Google endpoint failed');
@@ -75,7 +75,7 @@ async function translateUsingGoogle(text){
 }
 
 async function translateUsingMyMemory(text){
-  const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|hi`;
+  const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|mai`;
   const res = await fetch(url);
   if (!res.ok) {
     throw new Error('MyMemory endpoint failed');
@@ -90,7 +90,7 @@ async function translateUsingMyMemory(text){
   return translated;
 }
 
-async function translateEnglishToHindi(text){
+async function translateEnglishToMaithili(text){
   try {
     return await translateUsingGoogle(text);
   } catch (_) {
@@ -107,26 +107,26 @@ async function translateAndConvert(){
   }
 
   translateBtn.disabled = true;
-  setTranslationStatus('Translating English to Hindi...');
+  setTranslationStatus('Translating English to Maithili...');
 
   try {
-    const hindiText = await translateEnglishToHindi(englishText);
+    const maithiliText = await translateEnglishToMaithili(englishText);
 
     const normalizedEnglish = englishText.toLowerCase();
-    const normalizedHindi = hindiText.toLowerCase();
-    const hasDevanagari = /[\u0900-\u097F]/.test(hindiText);
-    if (normalizedEnglish === normalizedHindi || !hasDevanagari) {
-      inputEl.value = hindiText;
+    const normalizedMaithili = maithiliText.toLowerCase();
+    const hasDevanagari = /[\u0900-\u097F]/.test(maithiliText);
+    if (normalizedEnglish === normalizedMaithili || !hasDevanagari) {
+      inputEl.value = maithiliText;
       outputEl.textContent = '';
-      setTranslationStatus('Could not confidently translate this text to Hindi. Try meaningful English words/sentence.', true);
+      setTranslationStatus('Could not confidently translate this text to Maithili. Try meaningful English words/sentence.', true);
       return;
     }
 
-    inputEl.value = hindiText;
+    inputEl.value = maithiliText;
     doConvert();
     setTranslationStatus('Translated and converted to Tirhuta.');
   } catch (err) {
-    setTranslationStatus('Translation failed. Paste Hindi text in Step 2 and click Convert.', true);
+    setTranslationStatus('Translation failed. Paste Maithili (Devanagari) text in Step 2 and click Convert.', true);
   } finally {
     translateBtn.disabled = false;
   }
