@@ -23,11 +23,16 @@ const DEV_TO_TIR = {
 };
 
 const inputEl = document.getElementById('input');
+const englishInputEl = document.getElementById('englishInput');
 const outputEl = document.getElementById('output');
 const copyBtn = document.getElementById('copyBtn');
 const convertBtn = document.getElementById('convertBtn');
+const translateBtn = document.getElementById('translateBtn');
+const clearEnglishBtn = document.getElementById('clearEnglishBtn');
+const sampleEnglishBtn = document.getElementById('sampleEnglishBtn');
 const clearBtn = document.getElementById('clearBtn');
 const sampleBtn = document.getElementById('sampleBtn');
+const translationStatusEl = document.getElementById('translationStatus');
 const toast = document.getElementById('toast');
 
 function transliterate(text){
@@ -44,12 +49,120 @@ function doConvert(){
   outputEl.textContent = tir;
 }
 
+function setTranslationStatus(message, isError = false){
+  translationStatusEl.textContent = message;
+  translationStatusEl.classList.toggle('error', isError);
+}
+
+async function translateUsingGoogle(text){
+  const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=hi&dt=t&q=${encodeURIComponent(text)}`;
+  const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error('Google endpoint failed');
+  }
+
+  const data = await res.json();
+  const translated = (data?.[0] || [])
+    .map((chunk) => chunk?.[0] || '')
+    .join('')
+    .trim();
+
+  if (!translated) {
+    throw new Error('Google response was empty');
+  }
+
+  return translated;
+}
+
+async function translateUsingMyMemory(text){
+  const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|hi`;
+  const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error('MyMemory endpoint failed');
+  }
+
+  const data = await res.json();
+  const translated = (data?.responseData?.translatedText || '').trim();
+  if (!translated) {
+    throw new Error('MyMemory response was empty');
+  }
+
+  return translated;
+}
+
+async function translateEnglishToHindi(text){
+  try {
+    return await translateUsingGoogle(text);
+  } catch (_) {
+    return translateUsingMyMemory(text);
+  }
+}
+
+async function translateAndConvert(){
+  const englishText = (englishInputEl.value || '').trim();
+  if (!englishText) {
+    setTranslationStatus('Enter English text first.', true);
+    englishInputEl.focus();
+    return;
+  }
+
+  translateBtn.disabled = true;
+  setTranslationStatus('Translating English to Hindi...');
+
+  try {
+    const hindiText = await translateEnglishToHindi(englishText);
+
+    const normalizedEnglish = englishText.toLowerCase();
+    const normalizedHindi = hindiText.toLowerCase();
+    const hasDevanagari = /[\u0900-\u097F]/.test(hindiText);
+    if (normalizedEnglish === normalizedHindi || !hasDevanagari) {
+      inputEl.value = hindiText;
+      outputEl.textContent = '';
+      setTranslationStatus('Could not confidently translate this text to Hindi. Try meaningful English words/sentence.', true);
+      return;
+    }
+
+    inputEl.value = hindiText;
+    doConvert();
+    setTranslationStatus('Translated and converted to Tirhuta.');
+  } catch (err) {
+    setTranslationStatus('Translation failed. Paste Hindi text in Step 2 and click Convert.', true);
+  } finally {
+    translateBtn.disabled = false;
+  }
+}
+
 convertBtn.addEventListener('click', doConvert);
+translateBtn.addEventListener('click', translateAndConvert);
+
+clearEnglishBtn.addEventListener('click', () => {
+  englishInputEl.value = '';
+  setTranslationStatus('');
+  englishInputEl.focus();
+});
+
+sampleEnglishBtn.addEventListener('click', () => {
+  englishInputEl.value =
+`What is your name?
+My name is...
+Is everything fine?
+I am good.
+What are you doing?
+Please forgive me.
+Do you speak Maithili?
+Do you love me?
+I love you.
+I am 20 years old.`;
+  setTranslationStatus('');
+  englishInputEl.focus();
+});
 
 clearBtn.addEventListener('click', () => {
+  englishInputEl.value = '';
   inputEl.value = '';
+  setTranslationStatus('');
   doConvert();
-  inputEl.focus();
+  englishInputEl.focus();
 });
 
 sampleBtn.addEventListener('click', () => {
@@ -64,7 +177,7 @@ sampleBtn.addEventListener('click', () => {
 की अहाँ हमरा सँ प्रेम करे छी?
 हम अहां सँ प्रेम करै छी
 हम २० वर्षक छी`;
-  doConvert();
+  inputEl.focus();
 });
 
 
@@ -102,5 +215,11 @@ copyBtn.addEventListener('click', copyOutput);
 inputEl.addEventListener('keydown', (e) => {
   if ((e.ctrlKey || e.metaKey) && e.key === 'Enter'){
     doConvert();
+  }
+});
+
+englishInputEl.addEventListener('keydown', (e) => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter'){
+    translateAndConvert();
   }
 });

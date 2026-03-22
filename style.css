@@ -72,6 +72,18 @@ textarea#input{
   line-height:1.5;
 }
 
+textarea#englishInput{
+  width:100%;
+  min-height:120px;
+  padding:14px;
+  font-size:16px;
+  border-radius:10px;
+  border:2px solid var(--border);
+  background:#fffdf7;
+  resize:vertical;
+  line-height:1.5;
+}
+
 .controls{
   margin-top:10px;
   display:flex;
@@ -97,6 +109,18 @@ textarea#input{
   box-shadow:none;
 }
 .btn.small{padding:6px 10px;font-size:0.95rem}
+.btn:disabled{opacity:.6;cursor:not-allowed}
+
+.status-text{
+  font-size:0.88rem;
+  color:var(--muted);
+  min-height:1.2em;
+  margin-top:6px;
+}
+
+.status-text.error{
+  color:var(--accent);
+}
 
 .hint-line{font-size:0.92rem;color:var(--muted);margin-top:10px}
 

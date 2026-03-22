@@ -14,18 +14,24 @@
   <div class="container" role="main">
     <header>
       <h1>देवनागरी → तिरहुत (मिथिलाक्षर)</h1>
-      <div class="subtitle">Maithili in traditional Tirhuta — translate in two steps: English → Maithili, then paste Maithili here.</div>
+      <div class="subtitle">English → Hindi → Tirhuta in one flow, or paste Devanagari directly.</div>
     </header>
 
     <div class="grid">
       <div class="panel">
-        <label class="hint">Step 1 — Translate English → Maithili (Devanagari)</label>
-        <p class="hint-line">
-          Use <a href="https://translate.google.com/?sl=en&tl=mai" target="_blank">Google Translate</a>.
-        </p>
+        <label class="hint">Step 1 — Enter English</label>
+        <textarea id="englishInput" placeholder="Type English text here..."></textarea>
 
-        <label class="hint" style="margin-top:12px">Step 2 — Paste Maithili (देवनागरी)</label>
-        <textarea id="input" placeholder="यहाँ मैथिली (देवनागरी) लिखें या पेस्ट करें..."></textarea>
+        <div class="controls">
+          <button id="clearEnglishBtn" class="btn ghost small">Clear </button>
+          <button id="sampleEnglishBtn" class="btn small">Insert sample</button>
+          <div style="flex:1"></div>
+          <button id="translateBtn" class="btn small">Translate + Convert</button>
+        </div>
+        <div id="translationStatus" class="status-text" aria-live="polite"></div>
+
+        <label class="hint" style="margin-top:12px">Step 2 — Hindi/Devanagari Input</label>
+        <textarea id="input" placeholder="यहाँ हिंदी या मैथिली (देवनागरी) लिखें या पेस्ट करें..."></textarea>
 
         <div class="controls">
           <button id="clearBtn" class="btn ghost small">Clear</button>

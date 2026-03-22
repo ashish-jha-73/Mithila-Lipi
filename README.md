@@ -11,7 +11,9 @@ https://mithila-lipi.netlify.app/
 
 ## ✨ Features
 
+- Translate **English → Hindi (Devanagari)** inside the app
 - Convert Maithili text from **Devanagari → Tirhuta**
+- One-click **English → Hindi → Tirhuta** pipeline
 - Fully browser-based (no backend, no tracking)
 - Unicode-correct Tirhuta output
 - Mobile and desktop friendly
@@ -22,12 +24,13 @@ https://mithila-lipi.netlify.app/
 
 ## 🧭 How to use
 
-### Step 1 — English → Maithili
-Translate English into **Maithili (Devanagari)** using Google Translate:  
-https://translate.google.com/?sl=en&tl=mai
+### Step 1 — English → Hindi → Tirhuta (one click)
+1. Enter English text in the **English** box  
+2. Click **Translate + Convert**  
+3. Copy the Tirhuta output
 
-### Step 2 — Maithili → Tirhuta
-1. Paste the Maithili (Devanagari) text into the input box  
+### Step 2 — Optional direct Devanagari → Tirhuta
+1. Paste Hindi/Maithili (Devanagari) text into the second input box  
 2. Click **Convert**  
 3. Copy the Tirhuta output
 
